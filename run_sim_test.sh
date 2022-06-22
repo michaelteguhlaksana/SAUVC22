@@ -3,8 +3,11 @@
 start_sim () {
 	cd ~/ardupilot/ArduSub
 	sim_vehicle.py -j4 &
-	roslaunch mavros apm.launch fcu_url:=udp://0.0.0.0:14550 &
+	roslaunch mavros apm.launch fcu_url:=udp://0.0.0.0:14550@ &
 }
+
+#Update code from repo
+git pull
 
 #Start roscore
 roscore &
