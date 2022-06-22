@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 from movement_control. movement_control import AUVHandler
 import rospy
 import time
