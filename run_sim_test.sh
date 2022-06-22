@@ -6,6 +6,9 @@ start_sim () {
 	roslaunch mavros apm.launch fcu_url:=udp://0.0.0.0:14550@ &
 }
 
+#Update code from repo
+git pull
+
 #Start roscore
 roscore &
 
