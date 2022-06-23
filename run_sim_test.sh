@@ -7,15 +7,21 @@ start_sim () {
 }
 
 #Update code from repo
+echo "PULLING FROM REPO........"
 git pull
 
+wait
+
 #Start roscore
+echo "STARTING ROSCORE.........."
 roscore &
 
 #Start Sim
-
+echo "STARTING SIM.........."
 start_sim &
 
+#START TEST SCRIPT
+echo "STARTING TEST SCRIPT............"
 rosrun testing1 src/SAUVC22/testing1.py &
 
 rostopic echo /mavros/local_position/odom/pose

@@ -9,15 +9,17 @@ Reference:
 	https://github.com/PX4/PX4-Autopilot/tree/master/integrationtests/python_src/px4_it/mavros
 '''
 
-import threading
 from __future__ import division
+import threading
 from six.moves import xrange
+from tf.transformations import quaternion_from_euler
 
 from geometry_msgs.msg import PoseStamped, Quaternion, Vector3
 from mavros_msgs.msg import Altitude, ParamValue, State, AttitudeTarget
 from mavros_msgs.srv import CommandBool, ParamGet, ParamSet, SetMode, SetModeRequest
 
 from sensor_msgs.msg import Imu
+from std_msgs.msg import Header
 
 import rospy
 
@@ -27,7 +29,6 @@ import rospy
 
 class AUVHandler(object):
 	def __init__(self):
-		super().__init__()
 		self.rate = 1
 		self.connected = False
 		self.mode = "STABILIZED"
@@ -273,7 +274,7 @@ class AUVHandler(object):
 
 
 	def start_att_thread(self, func, *args):
-		self.att_thread = threading.Thread(target=self.send_att, args=(func, *args))
+		self.att_thread = threading.Thread(target=self.send_att, args=(func, args))
 		self.att_thread.daemon = True
 		self.att_thread.start()
 
