@@ -22,6 +22,7 @@ from sensor_msgs.msg import Imu
 from std_msgs.msg import Header
 
 import rospy
+from pymavlink import mavutil
 
 
 #----
@@ -258,19 +259,29 @@ class AUVHandler(object):
 		self.att.thrust = thrust
 		self.att.type_mask = 7  # ignore body rate
 
-		#SENDING COMMAND
-		self.log_topic_vars()
-		if disarm:
-			rospy.loginfo("DISARMING ...")
-			handler.set_arm(False, 10)
+		rospy.loginfo("ROSPY IS SHUTDOWN:: {}".format(rospy.is_shutdown()))
 
-		else:
-			self.att.header.stamp = rospy.Time.now()
-			self.att_setpoint_pub.publish(self.att)
-			try:  # prevent garbage in console output when thread is killed
-				rate.sleep()
-			except rospy.ROSInterruptException:
-				pass
+		
+		self.log_topic_vars()
+		rospy.loginfo("ROSPY IS SHUTDOWN:: {}".format(rospy.is_shutdown()))
+
+		try:
+			rospy.loginfo("trying to send command...")
+			if disarm:
+				rospy.loginfo("DISARMING ...")
+				handler.set_arm(False, 10)
+
+			else:
+				rospy.loginfo("SENDING COMMAND ....")
+				self.att.header.stamp = rospy.Time.now()
+				self.att_setpoint_pub.publish(self.att)
+				try:  # prevent garbage in console output when thread is killed
+					rate.sleep()
+				except rospy.ROSInterruptException:
+					pass
+		except:
+			rospy.loginfo("error")
+
 
 
 	def start_att_thread(self, func, *args):

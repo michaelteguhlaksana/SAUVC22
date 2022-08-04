@@ -11,17 +11,6 @@ Send a straight heading
 """
 
 
-def const_att_thrust (att):
-	"""
-	Sends a constant heading and thrust for 10 seconds
-	"""
-	att = att[0]
-	thrust = 0.7
-	sec = time.time() - START_TIME
-	if sec > 10:
-		return (att, 0, True)
-	else:
-		return (att, thrust, False)
 
 
 rospy.init_node('test_node', anonymous=True)
@@ -37,11 +26,20 @@ handler.log_topic_vars()
 
 START_TIME = time.time()
 
+def const_att_thrust (att):
+	"""
+	Sends a constant heading and thrust for 10 seconds
+	"""
+	att = att[0]
+	thrust = 0.7
+	sec = time.time() - START_TIME
+	rospy.loginfo("TIME:: {}".format(sec))
+	if sec > 10:
+		return (att, 0, True)
+	else:
+		return (att, thrust, False)
+
 #handler.start_att_thread(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
 while not rospy.is_shutdown():
 	handler.send_att(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
-
-
-
-
 
