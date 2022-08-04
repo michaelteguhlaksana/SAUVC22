@@ -258,19 +258,19 @@ class AUVHandler(object):
 		self.att.thrust = thrust
 		self.att.type_mask = 7  # ignore body rate
 
-		while not rospy.is_shutdown():
-			self.log_topic_vars()
-			if disarm:
-				rospy.loginfo("DISARMING ...")
-				handler.set_arm(False, 10)
+		#SENDING COMMAND
+		self.log_topic_vars()
+		if disarm:
+			rospy.loginfo("DISARMING ...")
+			handler.set_arm(False, 10)
 
-			else:
-				self.att.header.stamp = rospy.Time.now()
-				self.att_setpoint_pub.publish(self.att)
-				try:  # prevent garbage in console output when thread is killed
-					rate.sleep()
-				except rospy.ROSInterruptException:
-					pass
+		else:
+			self.att.header.stamp = rospy.Time.now()
+			self.att_setpoint_pub.publish(self.att)
+			try:  # prevent garbage in console output when thread is killed
+				rate.sleep()
+			except rospy.ROSInterruptException:
+				pass
 
 
 	def start_att_thread(self, func, *args):

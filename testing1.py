@@ -38,7 +38,7 @@ handler.log_topic_vars()
 START_TIME = time.time()
 
 #handler.start_att_thread(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
-while True:
+while not rospy.is_shutdown():
 	handler.send_att(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
 
 
