@@ -32,9 +32,7 @@ handler.set_arm(True, 5)
 handler.log_topic_vars()
 
 START_TIME = time.time()
-#handler.start_att_thread(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
-while True:
-	handler.send_att(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
+handler.start_att_thread(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
 
 
 
