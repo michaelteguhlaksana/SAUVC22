@@ -26,6 +26,7 @@ handler.log_topic_vars()
 
 START_TIME = time.time()
 
+<<<<<<< HEAD
 def const_att_thrust (att):
 	"""
 	Sends a constant heading and thrust for 10 seconds
@@ -40,6 +41,11 @@ def const_att_thrust (att):
 		return (att, thrust, False)
 
 handler.start_att_thread(const_att_thrust, (-0.25, 0.15, 0))
+=======
+#handler.start_att_thread(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
+while True:
+	handler.send_att(const_att_thrust, ((-0.25, 0.15, 0), 0.7) )
+>>>>>>> b7e4fe09f49e01707086029f415a42b98cdb32dd
 
 
 
